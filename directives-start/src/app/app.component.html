@@ -1,0 +1,71 @@
+<div class="container">
+  <div class = "row">
+    <div class = "col-xs-12">
+      <p>Give me some keys or input</p>
+      <input (keyup) = "OnKey($event)" placeholder="type any value">
+      <p>{{keyupvalues}}</p>
+    </div>
+  </div>
+
+  <div class = "row">
+      <div class = "col-xs-12">
+        <p>type an input completely and click aside to see the value</p>
+        <input #box (blur)="2">
+        <p>{{box.value}}</p>
+      </div>
+    </div>
+    <div class = "row">
+      <div class="col-xs-12">
+        <div [ngClass] = "{'error': errormessage.value == 'Entered color name doesnot exists in the list to remove it'}"> 
+          {{errormessage}}
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <input #listname (keyup.enter) = "OnAddList(listname.value);" >
+        <button class=" btn-primary" (click) = "OnAddList(listname.value);listname.value = '' ">Add</button>
+        <button class=" btn-danger"  (click) = "OnRemoveList(listname.value);">Remove</button>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor= "let clr of colors;let i = index;">
+            {{clr}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col-xs-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group">
+        <div *ngIf = "onlyOdd"> 
+            <li
+            class="list-group-item" *ngFor = "let even of EvenNumbers">
+            {{even}}
+          </li>
+        </div>
+
+        <div  *ngIf = "!onlyOdd">
+            <li
+            class="list-group-item"  *ngFor = "let odd of OddNumbers">
+            {{odd}}
+          </li>
+        </div>
+       
+      </ul>
+      <p appBasicHighlight >style me with some color</p>
+      <p appBetterHighlight   [HighlightColor] = "'orange'" [DefaultColor]= "'violet'" >style me using better directive renderer concept</p>
+      <ng-template [ngIf]="onlyOdd">
+        <p>Only odd</p>
+      </ng-template>
+
+      <p>This is an example of dynamically binding the color to a paragraph based on the data particular radio button checked</p>
+      <input type = "radio" name = "dynamiccolors" (click) = "color = 'cyan'" >cyan
+      <input type = "radio" name = "dynamiccolors" (click) = "color = 'green'" >green
+      <input type = "radio" name = "dynamiccolors" (click) = "color = 'red'" >lightred
+      
+      <p  appBetterHighlight   [HighlightColor] = color *ngIf = "color !='red'" >Highlight me based on color selected</p>
+  
+    </div>
+  </div>
+</div>
